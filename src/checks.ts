@@ -18,7 +18,6 @@ type WorkflowRun = {
 
 type RollupOptions = {
   selfWorkflowName: string
-  filterWorkflowEvents: string[]
   excludeWorkflowNames: string[]
   filterWorkflowNames: string[]
 }
