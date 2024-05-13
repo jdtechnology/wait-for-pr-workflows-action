@@ -19,7 +19,6 @@ describe('rollupChecks', () => {
           nodes: [
             {
               workflowRun: {
-                event: 'pull_request_target',
                 workflow: {
                   name: 'workflow-1',
                 },
@@ -29,7 +28,6 @@ describe('rollupChecks', () => {
             },
             {
               workflowRun: {
-                event: 'pull_request',
                 workflow: {
                   name: 'workflow-2',
                 },
@@ -39,7 +37,6 @@ describe('rollupChecks', () => {
             },
             {
               workflowRun: {
-                event: 'pull_request',
                 workflow: {
                   name: 'workflow-3',
                 },
@@ -55,7 +52,6 @@ describe('rollupChecks', () => {
   it('should exclude self workflow', () => {
     const rollup = rollupChecks(query, {
       selfWorkflowName: 'workflow-3',
-      filterWorkflowEvents: [],
       excludeWorkflowNames: [],
       filterWorkflowNames: [],
     })
@@ -65,33 +61,12 @@ describe('rollupChecks', () => {
         {
           status: CheckStatusState.Completed,
           conclusion: CheckConclusionState.Skipped,
-          event: 'pull_request_target',
           workflowName: 'workflow-1',
         },
         {
           status: CheckStatusState.Completed,
           conclusion: CheckConclusionState.Success,
-          event: 'pull_request',
           workflowName: 'workflow-2',
-        },
-      ],
-    })
-  })
-  it('should filter given events', () => {
-    const rollup = rollupChecks(query, {
-      selfWorkflowName: 'workflow-3',
-      filterWorkflowEvents: ['pull_request_target'],
-      excludeWorkflowNames: [],
-      filterWorkflowNames: [],
-    })
-    expect(rollup).toStrictEqual<Rollup>({
-      state: StatusState.Success,
-      workflowRuns: [
-        {
-          status: CheckStatusState.Completed,
-          conclusion: CheckConclusionState.Skipped,
-          event: 'pull_request_target',
-          workflowName: 'workflow-1',
         },
       ],
     })
@@ -99,7 +74,6 @@ describe('rollupChecks', () => {
   it('should exclude workflows by a name', () => {
     const rollup = rollupChecks(query, {
       selfWorkflowName: 'workflow-3',
-      filterWorkflowEvents: [],
       excludeWorkflowNames: ['*-1'],
       filterWorkflowNames: [],
     })
@@ -109,7 +83,6 @@ describe('rollupChecks', () => {
         {
           status: CheckStatusState.Completed,
           conclusion: CheckConclusionState.Success,
-          event: 'pull_request',
           workflowName: 'workflow-2',
         },
       ],
@@ -118,7 +91,6 @@ describe('rollupChecks', () => {
   it('should filter workflows by a name', () => {
     const rollup = rollupChecks(query, {
       selfWorkflowName: 'workflow-3',
-      filterWorkflowEvents: [],
       excludeWorkflowNames: [],
       filterWorkflowNames: ['*-2'],
     })
@@ -128,7 +100,6 @@ describe('rollupChecks', () => {
         {
           status: CheckStatusState.Completed,
           conclusion: CheckConclusionState.Success,
-          event: 'pull_request',
           workflowName: 'workflow-2',
         },
       ],
@@ -137,7 +108,6 @@ describe('rollupChecks', () => {
   it(`should return ${StatusState.Success} if no workflow`, () => {
     const rollup = rollupChecks(query, {
       selfWorkflowName: 'workflow-3',
-      filterWorkflowEvents: [],
       excludeWorkflowNames: ['*'],
       filterWorkflowNames: [],
     })
@@ -157,19 +127,16 @@ describe('rollupWorkflowRuns', () => {
   const runSuccess = {
     status: CheckStatusState.Completed,
     conclusion: CheckConclusionState.Success,
-    event: 'pull_request',
     workflowName: 'test-success',
   }
   const runFailure = {
     status: CheckStatusState.Completed,
     conclusion: CheckConclusionState.Failure,
-    event: 'pull_request',
     workflowName: 'test-failure',
   }
   const runInProgress = {
     status: CheckStatusState.InProgress,
     conclusion: null,
-    event: 'pull_request',
     workflowName: 'test-in-progress',
   }
 
