@@ -21,7 +21,6 @@ const query = /* GraphQL */ `
             }
             nodes {
               workflowRun {
-                event
                 workflow {
                   name
                 }
