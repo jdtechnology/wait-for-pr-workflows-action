@@ -10,7 +10,6 @@ const GITHUB_ACTIONS_APP_ID = 15368
 type Inputs = {
   initialDelaySeconds: number
   periodSeconds: number
-  filterWorkflowEvents: string[]
   excludeWorkflowNames: string[]
   filterWorkflowNames: string[]
   sha: string
