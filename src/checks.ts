@@ -13,7 +13,6 @@ type State = StatusState.Pending | StatusState.Success | StatusState.Failure
 type WorkflowRun = {
   status: CheckStatusState
   conclusion: CheckConclusionState | null
-  event: string
   workflowName: string
 }
 
@@ -37,7 +36,6 @@ export const rollupChecks = (checks: ListChecksQuery, options: RollupOptions): R
     return {
       status: node.status,
       conclusion: node.conclusion,
-      event: node.workflowRun.event,
       workflowName: node.workflowRun.workflow.name,
     }
   })
@@ -49,12 +47,6 @@ export const rollupChecks = (checks: ListChecksQuery, options: RollupOptions): R
     // exclude self to prevent an infinite loop
     if (workflowRun.workflowName === options.selfWorkflowName) {
       return false
-    }
-    // filter workflows by event
-    if (options.filterWorkflowEvents.length > 0) {
-      if (!options.filterWorkflowEvents.includes(workflowRun.event)) {
-        return false
-      }
     }
     // exclude workflows by names
     if (excludeWorkflowNameMatchers.length > 0) {
