@@ -1,4 +1,4 @@
-name: wait-for-workflows-action
+name: wait-for-pr-workflows-action
 description: Wait for workflow runs
 
 inputs:
