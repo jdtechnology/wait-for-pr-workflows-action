@@ -47,9 +47,9 @@ It determines the rollup state as follows:
 - If all workflow runs are completed, this action exits successfully.
 - Otherwise, check again.
 
-It excludes the workflow of self to prevent an infinite loop.
+It excludes the workflow of self to pr an infinite loop.
 
-It filters the workflows by the current event such as `push` or `pull_request`.
+It filters the workflows by the current  such as `push` or `pull_request`.
 
 ### Exclude or filter workflows by name patterns
 
@@ -104,7 +104,6 @@ See [rate limiting](https://docs.github.com/en/rest/overview/resources-in-the-re
 | ------------------------ | ---------------------------------------------------- | ---------------------------------- |
 | `initial-delay-seconds`  | 10                                                   | Initial delay before polling       |
 | `period-seconds`         | 15                                                   | Polling period                     |
-| `filter-workflow-events` | `github.event_name`                                  | Filter workflows by events         |
 | `exclude-workflow-names` | -                                                    | Exclude workflows by name patterns |
 | `filter-workflow-names`  | -                                                    | Filter workflows by name patterns  |
 | `sha`                    | `github.event.pull_request.head.sha` or `github.sha` | Commit SHA to wait for             |
