@@ -3,4 +3,4 @@ import { retry } from '@octokit/plugin-retry'
 
 export type Octokit = ReturnType<typeof github.getOctokit>
 
-export const getOctokit = (token: string): Octokit => github.getOctokit(token, {}, retry)
+export const getOctokit = (token: string): Octokit => github.getOctokit(token, {baseUrl: process.env.GITHUB_API_URL}, retry)
