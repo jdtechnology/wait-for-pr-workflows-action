@@ -68,8 +68,7 @@ export const paginate = async (
   }
 
   core.info(
-    `Received ${query.repository.object.checkSuites.nodes.length} / ${query.repository.object.checkSuites.totalCount} checkSuites ` +
-      `(rate-limit-remaining: ${query.rateLimit.remaining})`,
+    `Received ${query.repository.object.checkSuites.nodes.length} / ${query.repository.object.checkSuites.totalCount} checkSuites`,
   )
 
   if (!query.repository.object.checkSuites.pageInfo.hasNextPage) {
