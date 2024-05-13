@@ -22,7 +22,6 @@ type Inputs = {
 
 export const run = async (inputs: Inputs): Promise<void> => {
   core.info(`Target commit is ${inputs.sha}`)
-  core.info(`Filtering workflows by event: ${inputs.filterWorkflowEvents.join(', ')}`)
   core.info(`Excluding workflow name: ${inputs.excludeWorkflowNames.join(', ')}`)
 
   core.info(`Waiting for initial delay ${inputs.initialDelaySeconds}s`)
@@ -51,7 +50,7 @@ const poll = async (inputs: Inputs): Promise<Rollup> => {
     const rollup = rollupChecks(checks, inputs)
     core.startGroup(`Rollup state: ${rollup.state}`)
     for (const run of rollup.workflowRuns) {
-      core.info(`${run.status}: ${run.conclusion}: ${run.workflowName} (${run.event})`)
+      core.info(`${run.status}: ${run.conclusion}: ${run.workflowName}`)
     }
     core.endGroup()
 
