@@ -52,7 +52,6 @@ export const paginate = async (
   core.debug(JSON.stringify(query, undefined, 2))
   core.endGroup()
 
-  assert(query.rateLimit != null)
   assert(query.repository != null)
   assert(query.repository.object != null)
   assert.strictEqual(query.repository.object.__typename, 'Commit')
@@ -69,8 +68,7 @@ export const paginate = async (
   }
 
   core.info(
-    `Received ${query.repository.object.checkSuites.nodes.length} / ${query.repository.object.checkSuites.totalCount} checkSuites ` +
-      `(rate-limit-remaining: ${query.rateLimit.remaining})`,
+    `Received ${query.repository.object.checkSuites.nodes.length} / ${query.repository.object.checkSuites.totalCount} checkSuites`,
   )
 
   if (!query.repository.object.checkSuites.pageInfo.hasNextPage) {
