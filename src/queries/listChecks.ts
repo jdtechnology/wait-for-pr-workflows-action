@@ -52,7 +52,6 @@ export const paginate = async (
   core.debug(JSON.stringify(query, undefined, 2))
   core.endGroup()
 
-  assert(query.rateLimit != null)
   assert(query.repository != null)
   assert(query.repository.object != null)
   assert.strictEqual(query.repository.object.__typename, 'Commit')
